@@ -1,3 +1,1 @@
-const { why } = require("why");
-
-why();
+console.log(111111)
