@@ -5,7 +5,8 @@ module.exports = {
     entry: "./src/main.js",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "main.js"
+        filename: "static/main.js",
+        clearn: true
     },
     module: {
         rules: [
@@ -39,6 +40,18 @@ module.exports = {
                     "css-loader",
                     "stylus-loader"
                 ]
+            },
+            {
+                test: /\.(png|jpe?g|gif|webp|svg)$/,
+                type: "asset",
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 10 * 1024
+                    },
+                },
+                generator: {
+                    filename: "static/images/[hash:10][ext][query]"
+                }
             },
         ],
     },
