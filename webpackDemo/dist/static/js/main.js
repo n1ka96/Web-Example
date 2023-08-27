@@ -1,1 +1,2 @@
-!function(){"use strict";console.log(function(){for(var n=arguments.length,o=new Array(n),e=0;e<n;e++)o[e]=arguments[e];return o.reduce(((n,o)=>n+o),0)}(1,2,3)),console.log(1111)}();
+!function(){"use strict";console.log(function(){for(var o=arguments.length,n=new Array(o),e=0;e<o;e++)n[e]=arguments[e];return n.reduce(((o,n)=>o+n),0)}(1,2,3)),console.log(1111),console.log(3*3)}();
+//# sourceMappingURL=main.js.map
