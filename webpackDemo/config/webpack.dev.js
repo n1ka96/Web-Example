@@ -1,13 +1,13 @@
 
 const path = require("path");
 const ESLintPlugin = require("eslint-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: "./src/main.js",
     output: {
-        path: path.resolve(__dirname, "dist"),
+        path: undefined,
         filename: "static/js/main.js",
-        clean: true
     },
     module: {
         rules: [
@@ -61,12 +61,25 @@ module.exports = {
                     filename: "static/media/[hash:10][ext][query]"
                 }
             },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader",
+            },
         ],
     },
     plugins: [
         new ESLintPlugin({
-            context: path.resolve(__dirname, "src")
-        })
+            context: path.resolve(__dirname, "../src")
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, "../public/index.html"),
+        }),
     ],
+    devServer: {
+        host: "localhost",
+        port: "3000",
+        open: true
+    },
     mode: "development"
 }
