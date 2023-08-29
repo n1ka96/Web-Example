@@ -16,6 +16,5 @@ module.exports = {
             template: path.resolve(__dirname, "public/index.html"),
         })
     ],
-    clean: true,
     mode: "production",
 }
