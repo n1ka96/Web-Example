@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-
+const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
 const threads = os.cpus().length;
 
 function getStyleLoader(pre) {
@@ -111,12 +111,19 @@ module.exports = {
             template: path.resolve(__dirname, "../public/index.html"),
         }),
         new MiniCssExtractPlugin({
-            filename: "static/css/main.css"
+            // filename: "static/css/main.css"
+            filename: "static/css/[name].[contenthash:10].css",
+            chunkFilename: "static/css/[name].chunk.[contenthash:10].css"
         }),
         // new CssMinimizerPlugin(),
         // new TerserWebpackPlugin({
         //     parallel: threads
-        // })
+        // }),
+        new PreloadWebpackPlugin({
+            // rel: 'preload',
+            // as: 'script'
+            rel: 'prefetch'
+        })
     ],
     optimization: {
         minimizer: [
@@ -154,6 +161,9 @@ module.exports = {
         ],
         splitChunks: {
             chunks: 'all'
+        },
+        runtimeChunk: {
+            name: entrypoint => `runtime~${this.entrypoint.name}.js`
         }
     },
     devtool: "source-map",
