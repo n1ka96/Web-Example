@@ -22,3 +22,25 @@ document.getElementById('btn').onclick = function() {
         console.log('error')
     })
 }
+
+new Promise((resolve) => {
+    setTimeout(() => {
+        resolve();
+    }, 1000);
+})
+
+const arr = [1, 2, 3, 4];
+console.log(arr.includes(1));
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+        .register("/service-worker.js")
+        .then((registration) => {
+            console.log('SW registered: ', registration);
+        })
+        .catch((registrationError) => {
+            console.log('SW registered failed: ', registrationError);
+        })
+    })
+}

@@ -7,6 +7,8 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
+const WorkboxPlugin = require('workbox-webpack-plugin');
+
 const threads = os.cpus().length;
 
 function getStyleLoader(pre) {
@@ -123,6 +125,10 @@ module.exports = {
             // rel: 'preload',
             // as: 'script'
             rel: 'prefetch'
+        }),
+        new WorkboxPlugin.GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true,
         })
     ],
     optimization: {
@@ -162,9 +168,9 @@ module.exports = {
         splitChunks: {
             chunks: 'all'
         },
-        runtimeChunk: {
-            name: entrypoint => `runtime~${this.entrypoint.name}.js`
-        }
+        // runtimeChunk: {
+        //     name: entrypoint => `runtime~${entrypoint.name}.js`
+        // }
     },
     devtool: "source-map",
     mode: "production"
