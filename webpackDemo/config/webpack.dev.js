@@ -10,6 +10,8 @@ module.exports = {
     output: {
         path: undefined,
         filename: "static/js/main.js",
+        chunkFilename: 'static/js/[name].ckunk.js',
+        assetModuleFilename: "static/media/[hash:10][ext][query]",
     },
     module: {
         rules: [
@@ -54,16 +56,16 @@ module.exports = {
                                 maxSize: 10 * 1024
                             },
                         },
-                        generator: {
-                            filename: "static/images/[hash:10][ext][query]"
-                        }
+                        // generator: {
+                        //     filename: "static/images/[hash:10][ext][query]"
+                        // }
                     },
                     {
                         test: /\.(ttf|woff2?|map3|map4|avi)$/,
                         type: "asset/resource",
-                        generator: {
-                            filename: "static/media/[hash:10][ext][query]"
-                        }
+                        // generator: {
+                        //     filename: "static/media/[hash:10][ext][query]"
+                        // }
                     },
                     {
                         test: /\.js$/,
