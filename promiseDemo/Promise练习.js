@@ -3,11 +3,11 @@ const fs = require('fs');
 let p = new Promise((resolve, reject) => {
     fs.readFile('./poem.txt', (err, data) => {
         if(err) reject(err);
-        else resolve(data)
+        else resolve(err);
     })
 })
 p.then((resolve) => {
-    console.log(resolve.toString())
+    console.log(resolve.toString());
 }, (reject) => {
-    console.log(reject)
+    console.log(reject);
 })
