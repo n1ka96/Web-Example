@@ -5,7 +5,7 @@ class Viewport {
     constructor(container) {
 
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0xfafa00);
+        this.scene.background = new THREE.Color('aliceblue');
 
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 200);
         this.camera.position.set(10, 5, 20);
