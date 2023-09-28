@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { UIDUtil } from '../utils/UIDUtil';
 
 class Viewport {
     constructor(container) {
 
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color('aliceblue');
+        this.scene.background = new THREE.Color('#AAAA00');
 
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 200);
         this.camera.position.set(10, 5, 20);
@@ -28,11 +29,13 @@ class Viewport {
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.controls.minDistance = 5;
         this.controls.maxDistance = 100;
-        window.addEventListener('resize', this.onWindowResize);
-        this.controls.addEventListener('change', this.refresh);    
+
+        this.addEvent();
+
+        this.render();
     }
 
-    refresh = () => {
+    render = () => {
         this.renderer.render(this.scene, this.camera);
     }
 
@@ -40,6 +43,12 @@ class Viewport {
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.render();
+    }
+
+    addEvent() {
+        window.addEventListener('resize', this.onWindowResize);
+        this.controls.addEventListener('change', this.render); 
     }
 }
 
