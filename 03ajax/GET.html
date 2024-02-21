@@ -16,19 +16,30 @@
     <button>click</button>
     <div id="result"></div>
     <script>
-        const btn = document.querySelector('div');
-        console.log(btn)
+        const btn = document.querySelector('button');
+        const div = document.querySelector('div');
+        console.log(btn);
+        console.log(div);
+        let isSending = false;
         btn.onclick = function() {
             const xhr = new XMLHttpRequest();
+            if(isSending) xhr.abort();
+            isSending = true;
+            // xhr.open('GET', 'http://127.0.0.1:8000/serve?name=张三&age=18&gender=男');
             xhr.open('GET', 'http://127.0.0.1:8000/serve');
             xhr.send();
-            console.log(11);
+            xhr.timeout = 2000;
+            // 超时回调
+            xhr.ontimeout = function() {
+                alert('网络异常，请稍后')
+            }
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
+                    isSending = false;
                     if (xhr.status >= 200 && xhr.status <= 300) {
-                        console.log(xhr);
+                        div.textContent = xhr.response;
                     } else {
-
+                        alert('Error');
                     }
                 }
             }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Abort</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.slim.min.js"></script>
+</head>
+<body>
+<button id="btn1">点击发送</button>
+<button id="btn2">点击取消</button>
+<script>
+const btns = document.querySelectorAll('button');
+        let xhr = null;
+        //是否正在发送AJAX请求，名字随便起的
+        let isSending = false;
+        btns[0].onclick = function() {
+            //如果正在发送，则取消该请求，创建一个新的请求。
+            if (isSending) {
+                xhr.abort();
+            }
+            xhr = new XMLHttpRequest();
+            isSending = true;
+            xhr.open("GET", 'http://127.0.0.1:8000/serve');
+            console.log(xhr);
+
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    isSending = false;
+                }
+            }
+        }
+        btns[1].onclick = function() {
+            // xhr.abort();
+        }
+  </script>
+</body>
+</html>
